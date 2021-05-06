@@ -1,0 +1,119 @@
+﻿<Window x:Class="Company.Views.WorkTaskView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Company.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=local:WorkTaskViewModel}"
+        mc:Ignorable="d"
+        Title="WorkTaskView" Height="450" Width="800">
+    <Window.Resources>
+        <local:WorkTaskViewModel x:Key="wtvm"></local:WorkTaskViewModel>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="titleLabel" 
+               Grid.Row="0" 
+               Grid.Column="0">Title</Label>
+        <Label x:Name="descriptionLabel" 
+               Grid.Row="1" 
+               Grid.Column="0">Description</Label>
+        <Label x:Name="employeeIdLabel" 
+               Grid.Row="2" 
+               Grid.Column="0">Employee ID</Label>
+        <Label x:Name="computerIdLabel" 
+               Grid.Row="3" 
+               Grid.Column="0">Computer ID</Label>
+        <TextBox x:Name="titleTextBox" 
+                 Text="{Binding Path=CurrentWorkTask.TaskTitle, Mode=TwoWay}" 
+                 Grid.Row="0" 
+                 Grid.Column="1" 
+                 Margin="0, 0, 0, 5"></TextBox>
+        <TextBox x:Name="descriptionTextBox" 
+                 Text="{Binding Path=CurrentWorkTask.TaskDescription, Mode=TwoWay}" 
+                 TextWrapping="Wrap" 
+                 AcceptsReturn="True" 
+                 VerticalScrollBarVisibility="Visible" 
+                 Grid.Row="1" Grid.Column="1"
+                 Margin="0, 0, 0, 5"></TextBox>
+        <ComboBox x:Name="employeeIdComboBox" 
+                  ItemsSource="{Binding Path=EmployeesList}"
+                  DisplayMemberPath="EmployeeId"
+                  SelectedValue="{Binding Path=CurrentEmployee.EmployeeId}"                
+                  SelectedValuePath="EmployeeId" 
+                  Text="{Binding Path=CurrentWorkTask.EmployeeId, Mode=TwoWay}"
+                  Grid.Row="2" 
+                  Grid.Column="1" 
+                  Margin="0, 0, 0, 5">                     
+        </ComboBox>
+        <ComboBox x:Name="computerIdComboBox" 
+                  ItemsSource="{Binding Path=ComputersList}"
+                  DisplayMemberPath="ComputerId"
+                  SelectedValue="{Binding Path=CurrentComputer.ComputerId}"
+                  SelectedValuePath="ComputerId"                
+                  Text="{Binding Path=CurrentWorkTask.ComputerId, Mode=TwoWay}" 
+                  Grid.Row="3" 
+                  Grid.Column="1" 
+                  Margin="0, 0, 0, 5"></ComboBox>
+        <StackPanel Grid.Row="5" 
+                    Grid.Column="1" 
+                    Margin="0, 100, 0, 0">
+            <Button x:Name="btnSave" 
+                    Command="{Binding Path=SaveCommand}" 
+                    Margin="0, 0, 0, 5" >Save</Button>
+            <Button x:Name="btnUpdate" 
+                    Command="{Binding Path=UpdateCommand}" 
+                    Margin="0, 0, 0, 5" >Update</Button>
+            <Button x:Name="btnDelete" 
+                    Command="{Binding Path=DeleteCommand}" 
+                    Margin="0, 0, 0, 5" >Delete</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="5" 
+                    Grid.Column="2" 
+                    Margin="100, 10, 100, 0">
+            <DockPanel Width="Auto">
+                <TextBox x:Name="searchTextBox" 
+                         Width="250"
+                         Text="{Binding Path=CurrentWorkTask.SearchTitle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></TextBox> 
+                <Button x:Name="btnSearch" 
+                        Command="{Binding Path=SearchCommand}" 
+                        HorizontalAlignment="Right">Search</Button>
+            </DockPanel>
+            <DataGrid x:Name="workTaskDataGrid"
+                      Margin="0, 10, 0, 0"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding Path=WorkTasksList, Mode=TwoWay}"
+                      SelectedItem ="{Binding Path=CurrentWorkTask, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"
+                                        Width="Auto"
+                                        Binding="{Binding Path=TaskId}"/>
+                    <DataGridTextColumn Header="Title"
+                                        Width="Auto"
+                                        Binding="{Binding Path=TaskTitle}"/>
+                    <DataGridTextColumn Header="Description"
+                                        Width="Auto"
+                                        Binding="{Binding Path=TaskDescription}"/>
+                    <DataGridTextColumn Header="Employee ID"
+                                        Width="Auto"
+                                        Binding="{Binding Path=EmployeeId,Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Computer ID"
+                                        Width="Auto"
+                                        Binding="{Binding Path=ComputerId, Mode=TwoWay}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>

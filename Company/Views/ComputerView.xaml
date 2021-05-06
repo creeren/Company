@@ -1,0 +1,75 @@
+﻿<Window x:Class="Company.Views.ComputerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Company.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=local:ComputerViewModel}"
+        mc:Ignorable="d"
+        Title="ComputerView" Height="450" Width="800">
+    <Window.Resources>
+        <local:ComputerViewModel x:Key="cvm"></local:ComputerViewModel>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="nameLabel" 
+               Grid.Row="0" 
+               Grid.Column="0">Name</Label>
+        <Label x:Name="notes" 
+               Grid.Row="1" 
+               Grid.Column="0">Notes</Label>
+        <TextBox x:Name="nameTextBox" 
+                 Text="{Binding Path=CurrentComputer.ComputerName, Mode=TwoWay}"
+                 Grid.Row="0" 
+                 Grid.Column="1" 
+                 Margin="0, 0, 0, 5"></TextBox>
+        <TextBox x:Name="notesTextBox" 
+                 Text="{Binding Path=CurrentComputer.Notes, Mode=TwoWay}" 
+                 TextWrapping="Wrap" 
+                 AcceptsReturn="True" 
+                 VerticalScrollBarVisibility="Visible" 
+                 Grid.Row="1" Grid.Column="1" 
+                 Margin="0, 0, 0, 5"></TextBox>
+        <StackPanel Grid.Row="3" 
+                    Grid.Column="1" 
+                    Margin="0, 100, 0, 0">
+            <Button x:Name="btnSave" 
+                    Command="{Binding Path=SaveCommand}" 
+                    Margin="0, 0, 0, 5" >Save</Button>
+            <Button x:Name="btnUpdate" 
+                    Command="{Binding Path=UpdateCommand}" 
+                    Margin="0, 0, 0, 5" >Update</Button>        
+        </StackPanel>
+        <StackPanel Grid.Row="5" 
+                    Grid.Column="2" 
+                    Margin="100, 10, 100, 0">
+            <DataGrid x:Name="computerDataGrid"
+                      Margin="0, 10, 0, 0"
+                      AutoGenerateColumns="False"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding Path=ComputersList, Mode=TwoWay}"
+                      SelectedItem ="{Binding Path=CurrentComputer, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"
+                                        Width="Auto"
+                                        Binding="{Binding Path=ComputerId, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Name"
+                                        Width="Auto"
+                                        Binding="{Binding Path=ComputerName, Mode=TwoWay}"/>
+                    <DataGridTextColumn Header="Notes"
+                                        Width="Auto"
+                                        Binding="{Binding Path=Notes, Mode=TwoWay}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,19 @@
+﻿<Application x:Class="Company.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Company"
+             xmlns:views="clr-namespace:Company.Views"
+             xmlns:viewmodels="clr-namespace:Company.ViewModels"
+             StartupUri="Views/MainView.xaml">
+    <Application.Resources>
+        <!--<DataTemplate DataType="{x:Type viewmodels:EmployeeViewModel}">
+            <views:EmployeeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ComputerViewModel}">
+            <views:ComputerView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:WorkTaskViewModel}">
+            <views:WorkTaskView/>
+        </DataTemplate>-->
+    </Application.Resources>
+</Application>
