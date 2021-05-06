@@ -1,8 +1,4 @@
-﻿using Company.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System;
 using System.Windows.Input;
 
 namespace Company.Commands
